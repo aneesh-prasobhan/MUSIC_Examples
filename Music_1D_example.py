@@ -26,6 +26,9 @@ print(k)
 # Array geometry [rx, ry, rz]
 N = 10  # Number of antennas
 r = np.column_stack((np.arange(-(N-1)/2, (N-1)/2 + 1).T, np.zeros((N, 2))))
+print("r:")
+print(r.shape)
+print(r)
 
 # Matrix of array response vectors
 A = np.exp(-1j * r @ k)
@@ -37,14 +40,32 @@ print(A)
 # Additive noise
 sigma2 = 0.01  # Noise variance
 n = np.sqrt(sigma2) * (np.random.randn(N, L) + 1j * np.random.randn(N, L)) / np.sqrt(2)
+print("n:")
+print(n.shape)
+print(n)
+
+# #Convert all elements of n into 0
+# n = np.zeros((N, L))
+# print("deleted n:")
+# print(n.shape)
+# print(n)
+
 
 # Received signal
 x = A @ m + n
+print("x:")
+print(x.shape)
+print(x)
 
 # ========= (3) MUSIC ALGORITHM ========= #
 
 # Sample covariance matrix
 Rxx = x @ x.conj().T / L
+# L might be 180-32 in my case.
+print("Rxx:")
+print(Rxx.shape)
+print(Rxx)
+
 
 # Eigendecompose
 eig_values, eig_vectors = np.linalg.eig(Rxx)
