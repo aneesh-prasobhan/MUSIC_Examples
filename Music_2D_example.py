@@ -19,9 +19,12 @@ k = np.pi * np.column_stack((np.cos(np.deg2rad(az)) * np.cos(np.deg2rad(el)),
                              np.sin(np.deg2rad(az)) * np.cos(np.deg2rad(el)),
                              np.sin(np.deg2rad(el)))).T
 
+
+
 # Array geometry [rx,ry,rz] (example: 4x4 square array)
 N = 16  # Number of antennas
 array_size = int(np.sqrt(N))
+print(array_size)
 dx = 1  # distance between antennas in x direction
 dy = 1  # distance between antennas in y direction
 rx, ry = np.meshgrid(np.arange(0, array_size * dx, dx), np.arange(0, array_size * dy, dy))
@@ -35,6 +38,7 @@ A = np.exp(-1j * r @ k)
 # Additive noise
 sigma2 = 0.01  # Noise variance
 n = np.sqrt(sigma2) * (np.random.randn(N, L) + 1j * np.random.randn(N, L)) / np.sqrt(2)
+
 
 # Received signal
 x = A @ m + n
